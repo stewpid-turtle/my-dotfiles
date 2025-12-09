@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo apt-get install pavucontrol sway waybar wofi alacritty swayidle sway-backgrounds grim slurp fonts-font-awesome swaylock mako-notifier libnotify-bin
+
+mkdir ~/.config
+sudo mv alacritty fastfetch mako sway waybar wofi ~/.config/
+cd ~/.config/
+sudo chown -R $USER:$USER *
+sudo mv tokyo.png /usr/share/backgrounds/sway/
