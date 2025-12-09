@@ -1,9 +1,56 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
-sudo apt-get install pavucontrol sway waybar wofi alacritty swayidle sway-backgrounds grim slurp fonts-font-awesome swaylock mako-notifier libnotify-bin
+# Packages to install
+PACKAGES=(
+  pavucontrol
+  sway
+  waybar
+  wofi
+  alacritty
+  swayidle
+  sway-backgrounds
+  grim
+  slurp
+  fonts-font-awesome
+  swaylock
+  mako-notifier
+  libnotify-bin
+)
 
-mkdir ~/.config
-sudo mv alacritty fastfetch mako sway waybar wofi ~/.config/
-cd ~/.config/
-sudo chown -R $USER:$USER *
-sudo mv tokyo.png /usr/share/backgrounds/sway/
+echo "Updating package lists..."
+sudo apt-get update
+
+echo "Installing packages..."
+sudo apt-get install -y "${PACKAGES[@]}"
+
+# Ensure config directory exists
+CONFIG_DIR="$HOME/.config"
+mkdir -p "$CONFIG_DIR"
+
+# Move configuration directories
+echo "Moving configuration directories to $CONFIG_DIR..."
+for dir in alacritty fastfetch mako sway waybar wofi; do
+    if [[ -d $dir ]]; then
+        mv "$dir" "$CONFIG_DIR/"
+    else
+        echo "Warning: Directory '$dir' not found, skipping."
+    fi
+done
+
+# Fix ownership
+echo "Setting correct permissions..."
+sudo chown -R "$USER:$USER" "$CONFIG_DIR"
+
+# Move wallpaper
+WALLPAPER_SRC="tokyo.png"
+WALLPAPER_DEST="/usr/share/backgrounds/sway"
+
+if [[ -f $WALLPAPER_SRC ]]; then
+    echo "Copying wallpaper to $WALLPAPER_DEST..."
+    sudo install -m 644 "$WALLPAPER_SRC" "$WALLPAPER_DEST/"
+else
+    echo "Warning: Wallpaper file '$WALLPAPER_SRC' not found, skipping."
+fi
+
+echo "Setup complete."
