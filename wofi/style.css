@@ -1,0 +1,26 @@
+window {
+	background-color: rgba(0,0,0,0.6);
+	border-style: solid;
+	border-width: 2px;
+	border-color: #ff7070
+}
+
+#input{
+	background-color: rgba(0,0,0,0.6);
+	color: #ff7070;
+	border-color: #ff7070
+}
+
+#inner-box{
+	background-color: rgba(0,0,0,0.6);
+}
+
+#text{
+	color: #ffffff;
+}
+
+#entry:selected{
+	background: #ff7070;
+	color: #000000;
+
+}
