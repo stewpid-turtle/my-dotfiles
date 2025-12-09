@@ -13,7 +13,6 @@ set $term alacritty
 set $menu wofi --show drun
 
 #execute application
-#swaybg -i /home/turtle/Pictures/wallpapers/tokyo.jpg
 exec_always mako
 
 
